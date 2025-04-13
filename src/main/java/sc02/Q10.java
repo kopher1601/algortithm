@@ -4,49 +4,46 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-/**
- * Input
- * teachermode e
- * <p>
- * Output
- * 1 0 1 2 1 0 1 2 2 1 0
- */
 public class Q10 {
     public static void main(String[] args) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            String[] line = br.readLine().split(" ");
-            String[] str = line[0].split("");
-            String aWord = line[1];
-
-            int[] answer = new int[str.length];
-            int count = 1;
-            for (int i = 0; i < str.length; i = i + 1) {
-                if (str[i].equals(aWord)) {
-                    answer[i] = 0;
-                    count = 1;
+            String[] strs = br.readLine().split(" ");
+            char[] chars = strs[0].toCharArray();
+            char target = strs[1].charAt(0);
+            int[] result = new int[chars.length];
+            int count = 1000;
+            for (int i = 0; i < chars.length; i++) {
+                if (target == chars[i]) {
+                    count = 0;
+                    result[i] = count;
+                    count++;
                     continue;
                 }
-                answer[i] = count++;
+                result[i] = count;
+                count++;
             }
 
-            count = 1;
-            for (int i = str.length - 1; i > 0; i--) {
-                if (str[i].equals(aWord)) {
-                    answer[i] = 0;
-                    count = 1;
+            count = 1000;
+            for (int j = chars.length - 1; j >= 0; j--) {
+                if (target == chars[j]) {
+                    count = 0;
+                    result[j] = count;
+                    count++;
                     continue;
                 }
-                if (answer[i] > count) {
-                    answer[i] = count;
+                if (result[j] > count) {
+                    result[j] = count;
                 }
                 count++;
             }
 
-            for (int i = 0; i < answer.length; i++) {
-                System.out.print(answer[i] + " ");
+            for (int i : result) {
+                System.out.print(i + " ");
             }
+
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
